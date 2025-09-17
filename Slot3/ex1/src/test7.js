@@ -1,6 +1,6 @@
 const ages2 = [33, 12, 20, 16, 19, 25, 14];
 
-// Tính toán với reduce
+// Tính toán với reduce.
 const stats = ages2.reduce(
   (acc, age) => {
     acc.total += age;
