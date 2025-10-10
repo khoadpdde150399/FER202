@@ -1,6 +1,7 @@
+// src/App.js
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FooterPage from './pages/FooterPage.jsx';
-import HomePage from './pages/HomePage.jsx';
+import FooterPage from './pages/FooterPage';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (

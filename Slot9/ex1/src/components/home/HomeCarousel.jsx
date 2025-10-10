@@ -1,3 +1,4 @@
+// src/components/home/HomeCarousel.jsx
 import React from "react";
 import { Carousel, Badge } from "react-bootstrap";
 import { carouselMovies } from "../../data/carousel";

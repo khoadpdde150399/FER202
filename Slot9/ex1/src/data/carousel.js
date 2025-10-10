@@ -1,32 +1,36 @@
+// src/data/carousel.js
 export const carouselMovies = [
   {
     id: 1,
-    title: 'The Conjuring: Last Rites',
-    description: 'The latest horror chapter in The Conjuring series with spine‑chilling events and supernatural threats.',
-    poster: '/images/the_conjuring_last_rites.jpg',
-    genre: 'Horror',
-    year: 2025,
+    title: 'Inception',
+    description:
+      'A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.',
+    poster: '/images/inception.jpg',
+    genre: 'Sci-Fi',
+    year: 2010,
     country: 'USA',
-    duration: 120  // example, adjust if you know real duration
+    duration: 148
   },
   {
     id: 2,
-    title: 'One Battle After Another',
-    description: 'A powerful action‑thriller with an all‑star cast, exploring conflict, betrayal, and redemption.',
-    poster: '/images/one_battle_after_another.jpg',
-    genre: 'Action/Thriller',
-    year: 2025,
+    title: 'The Shawshank Redemption',
+    description:
+      'Two imprisoned men bond over many years, finding solace and eventual redemption through acts of common decency.',
+    poster: '/images/shawshank.jpg',
+    genre: 'Drama',
+    year: 1994,
     country: 'USA',
-    duration: 160
+    duration: 142
   },
   {
     id: 3,
-    title: 'Jurassic World: Rebirth',
-    description: 'Dinosaurs return in a breathtaking adventure with new threats and high stakes in this sci‑fi spectacle.',
-    poster: '/images/jurassic_world_rebirth.jpg',
-    genre: 'Sci‑Fi',
-    year: 2025,
-    country: 'USA',
-    duration: 133
+    title: 'Spirited Away',
+    description:
+      'A young girl enters a world of spirits and must find a way to free her parents and return home.',
+    poster: '/images/spiritedaway.jpg',
+    genre: 'Animation',
+    year: 2001,
+    country: 'Japan',
+    duration: 125
   }
-];  
+];
