@@ -1,0 +1,26 @@
+/* =============================
+   🌿 Footer – Ghibli Pastel Style
+   ============================= */
+
+footer {
+  background-color: #cce3de; /* Soft green pastel */
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  border-top: 2px solid #b5c9c3;
+  color: #2f3e46;
+  font-size: 0.9rem;
+}
+
+footer p {
+  margin: 0.25rem 0;
+}
+
+footer a {
+  color: #52796f;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #84a98c;
+}

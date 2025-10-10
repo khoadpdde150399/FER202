@@ -1,0 +1,30 @@
+.carousel .carousel-caption {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  color: #2f3e46;
+  text-shadow: none;
+  backdrop-filter: blur(6px);
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+.carousel .carousel-caption h3 {
+  font-weight: 600;
+  color: #2f3e46;
+}
+
+.carousel .carousel-caption p {
+  color: #354f52;
+}
+
+.carousel .carousel-indicators button {
+  background-color: #a0c4ff;
+}
+
+.carousel .carousel-indicators .active {
+  background-color: #ffafcc;
+}
+
+.carousel-item img {
+  filter: brightness(90%) saturate(110%);
+}
