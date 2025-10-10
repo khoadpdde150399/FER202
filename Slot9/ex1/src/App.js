@@ -2,6 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FooterPage from './pages/FooterPage';
 import HomePage from './pages/HomePage';
+import './App.css';
 
 function App() {
   return (

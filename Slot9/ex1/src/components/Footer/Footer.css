@@ -1,26 +1,26 @@
-/* Footer basic styling */
+/* =============================
+   🌿 Footer – Ghibli Pastel Style
+   ============================= */
+
 footer {
-  background-color: #f8f9fa;
+  background-color: #cce3de; /* Soft green pastel */
   text-align: center;
   padding: 1rem 0;
   margin-top: 2rem;
-  border-top: 1px solid #ddd;
-  color: #333;
-  font-size: 0.95rem;
+  border-top: 2px solid #b5c9c3;
+  color: #2f3e46;
+  font-size: 0.9rem;
 }
 
-/* Add spacing between lines */
 footer p {
   margin: 0.25rem 0;
 }
 
-/* Style the email link */
 footer a {
-  color: #007bff;
-  text-decoration: none;
+  color: #52796f;
+  transition: color 0.3s ease;
 }
 
 footer a:hover {
-  text-decoration: underline;
-  color: #0056b3;
+  color: #84a98c;
 }

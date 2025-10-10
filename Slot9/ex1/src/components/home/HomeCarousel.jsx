@@ -2,6 +2,8 @@
 import React from "react";
 import { Carousel, Badge } from "react-bootstrap";
 import { carouselMovies } from "../../data/carousel";
+import './HomeCarousel.css';
+
 
 export default function HomeCarousel() {
   if (!Array.isArray(carouselMovies) || carouselMovies.length === 0) return null;
