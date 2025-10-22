@@ -1,5 +1,6 @@
-import React, { useReducer } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+// src/components/LoginForm.jsx
+import React, { useReducer, useState } from "react";
+import { Form, Button, Card, Modal } from "react-bootstrap";
 
 const initialState = { username: "", password: "" };
 
@@ -9,6 +10,9 @@ function reducer(state, action) {
 
 function LoginForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [variant, setVariant] = useState("success"); // màu sắc modal (thành công / lỗi)
 
   const handleChange = (e) =>
     dispatch({ field: e.target.name, value: e.target.value });
@@ -16,17 +20,19 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ✅ Add validation before success message
     if (!state.username.trim() || !state.password.trim()) {
-      alert("Please fill in both Username and Password!");
-      return;
+      setMessage("⚠️ Please fill in both Username and Password!");
+      setVariant("danger");
+    } else {
+      setMessage(`✅ Login Successful!\nWelcome, ${state.username}!`);
+      setVariant("success");
     }
 
-    alert(`Login Successful!\nUsername: ${state.username}`);
+    setShowModal(true);
   };
 
   return (
-    <Card className="p-3 mb-4">
+    <Card className="p-3 mb-4 shadow-sm">
       <h4>Exercise 3: Login Form</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -50,6 +56,23 @@ function LoginForm() {
           Login
         </Button>
       </Form>
+
+      {/* ✅ Modal hiển thị thông báo */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{variant === "success" ? "Login Success" : "Error"}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body
+          className={variant === "success" ? "text-success" : "text-danger"}
+        >
+          {message}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Card>
   );
 }
