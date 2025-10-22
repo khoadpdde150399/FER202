@@ -15,6 +15,13 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // ✅ Add validation before success
+    if (!state.username.trim() || !state.email.trim() || !state.password.trim()) {
+      alert("Please fill in all fields before registering!");
+      return;
+    }
+
     alert(`Register Success!\nID: ${Math.floor(Math.random() * 10000)}`);
   };
 
@@ -24,17 +31,33 @@ function SignUpForm() {
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Username</Form.Label>
-          <Form.Control name="username" value={state.username} onChange={handleChange} />
+          <Form.Control
+            name="username"
+            value={state.username}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="email" name="email" value={state.email} onChange={handleChange} />
+          <Form.Control
+            type="email"
+            name="email"
+            value={state.email}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" name="password" value={state.password} onChange={handleChange} />
+          <Form.Control
+            type="password"
+            name="password"
+            value={state.password}
+            onChange={handleChange}
+          />
         </Form.Group>
-        <Button type="submit" className="mt-3">Register</Button>
+        <Button type="submit" className="mt-3">
+          Register
+        </Button>
       </Form>
     </Card>
   );
