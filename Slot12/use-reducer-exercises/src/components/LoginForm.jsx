@@ -1,109 +1,170 @@
-import React, { useReducer, useState } from "react";
-import { Form, Button, Card, Modal } from "react-bootstrap";
+import React, { useReducer } from "react";
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
+import ConfirmModal from "./ConfirmModal"; // ✅ Reusable modal
 
-const initialState = { username: "", password: "" };
+// 1️⃣ Khởi tạo trạng thái ban đầu
+const initialState = {
+  user: { username: "", password: "" },
+  errors: {},
+  showModal: false,
+};
 
+// 2️⃣ Định nghĩa hàm reducer
 function reducer(state, action) {
-  return { ...state, [action.field]: action.value };
+  switch (action.type) {
+    case "SET_FIELD":
+      return {
+        ...state,
+        user: { ...state.user, [action.field]: action.value },
+      };
+
+    case "SET_ERRORS":
+      return {
+        ...state,
+        errors: { ...state.errors, [action.field]: action.message },
+      };
+
+    case "CLEAR_ERRORS":
+      const { [action.field]: removed, ...rest } = state.errors;
+      return { ...state, errors: rest };
+
+    case "SET_SHOW_MODAL":
+      return { ...state, showModal: true };
+
+    case "CLOSE_MODAL":
+      return {
+        ...state,
+        showModal: false,
+        user: { username: "", password: "" },
+        errors: {},
+      };
+
+    case "RESET_FORM":
+      return initialState;
+
+    default:
+      return state;
+  }
 }
 
+// 3️⃣ Component chính
 function LoginForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [errors, setErrors] = useState({ username: "", password: "", general: "" });
-  const [showModal, setShowModal] = useState(false);
 
+  // Xử lý thay đổi input
   const handleChange = (e) => {
-    dispatch({ field: e.target.name, value: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "", general: "" });
+    const { name, value } = e.target;
+    dispatch({ type: "SET_FIELD", field: name, value });
+
+    if (value.trim() === "") {
+      dispatch({
+        type: "SET_ERRORS",
+        field: name,
+        message: `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
+      });
+    } else {
+      dispatch({ type: "CLEAR_ERRORS", field: name });
+    }
   };
 
+  // Xử lý submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    let formErrors = { username: "", password: "", general: "" };
+    const newErrors = {};
 
-    if (!state.username.trim()) {
-      formErrors.username = "⚠️ Username is required!";
+    if (state.user.username.trim() === "") {
+      newErrors.username = "Username is required";
     }
-    if (!state.password.trim()) {
-      formErrors.password = "⚠️ Password is required!";
-    }
-
-    if (formErrors.username || formErrors.password) {
-      setErrors(formErrors);
-      return;
+    if (state.user.password.trim() === "") {
+      newErrors.password = "Password is required";
     }
 
-    // Assuming the correct credentials are username="admin", password="1234"
-    if (state.username === "admin" && state.password === "1234") {
-      // success
-      setErrors({ username: "", password: "", general: "" });
-      setShowModal(true);
+    if (Object.keys(newErrors).length > 0) {
+      for (const field in newErrors) {
+        dispatch({
+          type: "SET_ERRORS",
+          field,
+          message: newErrors[field],
+        });
+      }
     } else {
-      // credentials filled but wrong
-      setErrors({ username: "", password: "", general: "❌ Username or password is incorrect!" });
+      dispatch({ type: "SET_SHOW_MODAL" });
     }
+  };
+
+  const handleCloseModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
   };
 
   return (
-    <Card className="p-3 mb-4 shadow-sm">
-      <h4>Exercise 3: Login Form</h4>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-2">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            name="username"
-            value={state.username}
-            onChange={handleChange}
-            isInvalid={!!errors.username}
-          />
-          {errors.username && (
-            <Form.Text className="text-danger">
-              {errors.username}
-            </Form.Text>
-          )}
-        </Form.Group>
+    <Container className="mt-5">
+      <Row className="justify-content-md-center">
+        <Col md={6}>
+          <Card>
+            <Card.Header>
+              <h3 className="text-center">Login Form with useReducer</h3>
+            </Card.Header>
+            <Card.Body>
+              <Form onSubmit={handleSubmit}>
+                {/* Username */}
+                <Form.Group controlId="username" className="mb-3">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    value={state.user.username}
+                    onChange={handleChange}
+                    isInvalid={!!state.errors.username}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {state.errors.username}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-        <Form.Group className="mb-2">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={state.password}
-            onChange={handleChange}
-            isInvalid={!!errors.password}
-          />
-          {errors.password && (
-            <Form.Text className="text-danger">
-              {errors.password}
-            </Form.Text>
-          )}
-        </Form.Group>
+                {/* Password */}
+                <Form.Group controlId="password" className="mb-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={state.user.password}
+                    onChange={handleChange}
+                    isInvalid={!!state.errors.password}
+                    placeholder="Enter password"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {state.errors.password}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-        {errors.general && (
-          <div className="mb-2 text-danger">
-            {errors.general}
-          </div>
-        )}
+                {/* Buttons */}
+                <div className="d-flex gap-2">
+                  <Button variant="primary" type="submit" className="flex-fill">
+                    Login
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    type="button"
+                    className="flex-fill"
+                    onClick={() => dispatch({ type: "RESET_FORM" })}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
-        <Button type="submit" className="mt-3">
-          Login
-        </Button>
-      </Form>
-
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Login Successful</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="text-success">
-          ✅ Welcome, {state.username}!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" onClick={() => setShowModal(false)}>
-            OK
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Card>
+      {/* ✅ Confirm Modal */}
+      <ConfirmModal
+        show={state.showModal}
+        title="Login Successful"
+        message={`Welcome, ${state.user.username}! You have successfully logged in!`}
+        onConfirm={handleCloseModal}
+      />
+    </Container>
   );
 }
 
