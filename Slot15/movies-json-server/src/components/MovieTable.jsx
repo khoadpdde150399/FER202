@@ -33,7 +33,7 @@ const MovieTable = () => {
           <tbody>
             {movies.map(movie => (
               <tr key={movie.id}>
-                <td><Image src={movie.avatar} alt={movie.title} style={{ width: '60px', height: '60px', objectFit: 'cover' }} rounded /></td>
+                <td><Image src={movie.poster} alt={movie.title} style={{ width: '60px', height: '60px', objectFit: 'cover' }} rounded /></td>
                 <td>{movie.id}</td>
                 <td>{movie.title}</td>
                 <td>{genreMap[movie.genreId]}</td>
