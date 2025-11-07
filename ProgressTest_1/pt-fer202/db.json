@@ -37,6 +37,13 @@
       "courseName": "Mobile Programming",
       "amount": 4200000,
       "date": "2025-10-10"
+    },
+    {
+      "id": "fa5c",
+      "semester": "Fall 2025",
+      "courseName": "\tWeb Development",
+      "amount": 3500000,
+      "date": "2025-11-06"
     }
   ]
 }
